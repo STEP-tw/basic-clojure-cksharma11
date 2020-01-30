@@ -41,3 +41,17 @@
 		(is (= :greece (five-point-someone 10 9))))
 	(testing "else condition"
 		(is (= :universe (five-point-someone 10 20)))))
+
+(deftest test-zero-aliases
+	(testing "0"
+		(is (= :zero (zero-aliases 0))))
+	(testing "empty}"
+		(is (= :empty (zero-aliases []))))
+	(testing "empty set"
+		(is (= :empty-set (zero-aliases #{}))))
+	(testing "empty map"
+		(is (= :empty-map (zero-aliases {}))))
+	(testing "empty string"
+		(is (= :empty-string (zero-aliases ""))))
+	(testing "non zero"
+		(is (= :non-zero (zero-aliases "some non zero value")))))

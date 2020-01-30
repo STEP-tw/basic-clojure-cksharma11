@@ -31,3 +31,13 @@
 		(is (= [1 1 2] (duplicate-first [1 2]))))
 	(testing "empty list"
 		(is (= nil (duplicate-first [])))))
+
+(deftest test-five-point-someone
+	(testing "x equals 5"
+		(is (= :satan-bhagat (five-point-someone 5 3))))
+	(testing "y equals 5"
+		(is (= :chetan-bhagat (five-point-someone 3 5))))
+	(testing "x greater than y"
+		(is (= :greece (five-point-someone 10 9))))
+	(testing "else condition"
+		(is (= :universe (five-point-someone 10 20)))))

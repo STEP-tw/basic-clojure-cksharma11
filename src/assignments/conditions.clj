@@ -12,16 +12,18 @@
   "Returns the result of x/y unless y is 0. Returns :infinite when y is 0"
   {:level        :easy
    :use          '[if-not zero?]
-   :implemented? false}
-  [x y])
+   :implemented? true}
+  [x y]
+	(if-not (zero? y) (/ x y) :infinite))
 
 (defn harishchandra
   "Only returns truthy values as themselves.
   Falsy values(false and nil) return nil"
   {:level        :easy
    :use          '[when-let]
-   :implemented? false}
-  [x])
+   :implemented? true}
+  [x]
+	(when-let [y x] y))
 
 (defn yudishtira
   "Only returns truthy values as themselves.
@@ -29,7 +31,8 @@
   {:level        :easy
    :use          '[if-let]
    :implemented? false}
-  [x])
+  [x]
+	(if-let [y x] y :ashwathama))
 
 (defn duplicate-first
   "Returns coll with the first element duplicated.
@@ -38,7 +41,8 @@
    :use          '[when-first concat]
    :alternates   '[empty? seq? conj into]
    :implemented? false}
-  [coll])
+  [coll]
+	(when-first [y coll] (into [y] coll)))
 
 (defn five-point-someone
   "Returns :chetan-bhagat if y is 5.

@@ -45,7 +45,7 @@
 (deftest test-zero-aliases
 	(testing "0"
 		(is (= :zero (zero-aliases 0))))
-	(testing "empty}"
+	(testing "empty"
 		(is (= :empty (zero-aliases []))))
 	(testing "empty set"
 		(is (= :empty-set (zero-aliases #{}))))

@@ -32,8 +32,18 @@
 	 :use          '[loop recur]
 	 :dont-use     '[reduce]
 	 :implemented? false}
-	([f coll])
-	([f init coll]))
+	([f coll]
+	 (if (> (count coll) 1) (loop [acc (f (first coll) (second coll))
+																coll (rest (rest coll))]
+														(if (empty? coll)
+															acc
+															(recur (f acc (first coll)) (rest coll)))) (first coll)))
+	([f init coll]
+	 (loop [acc (f init (first coll))
+				 coll (rest coll)]
+		 (if (empty? coll)
+			 acc
+			 (recur (f acc (first coll)) (rest coll))))))
 
 (defn count'
 	"Implement your own version of count that counts the
@@ -112,7 +122,7 @@
 	{:level        :medium
 	 :use          '[lazy-seq conj let :optionally letfn]
 	 :dont-use     '[loop recur dedupe]
-	 :implemented? false}
+	 :implemented? true}
 	[coll]
 	(map first (partition-by identity coll)))
 
@@ -142,7 +152,7 @@
 	^{:level        :easy
 		:dont-use     '[loop recur for nth get]
 		:implemented? false}
-	transpose
+	transpose (partial apply map list)
 	"Transposes a given matrix.
 	[[a b] [c d]] => [[a c] [b d]].
 	Note this is a def. Not a defn.
@@ -165,8 +175,9 @@
 	if elements repeat."
 	{:level        :easy
 	 :use          '[remove into set ->>]
-	 :implemented? false}
-	[coll1 coll2])
+	 :implemented? true}
+	[coll1 coll2]
+	(map identity (set (into coll1 coll2))))
 
 ;; points-around-origin is a def not a defn
 (def
@@ -195,7 +206,8 @@
 	{:level        :easy
 	 :use          '[mapcat partial repeat :optionally vector]
 	 :implemented? false}
-	[coll])
+	[coll]
+	(mapcat (partial repeat 2) coll))
 
 (defn third-or-fifth
 	"Given a collection return a new collection that contains

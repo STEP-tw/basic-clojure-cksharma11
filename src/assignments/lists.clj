@@ -42,7 +42,11 @@
    :use          '[loop recur]
    :dont-use     '[count]
    :implemented? false}
-  ([coll]))
+  ([coll]
+	 (loop [result 0 coll coll]
+		 (if (empty? coll)
+			 result
+			 (recur (inc result) (rest coll))))))
 
 (defn reverse'
   "Implement your own version of reverse that reverses a coll.
@@ -61,7 +65,11 @@
    :use          '[loop recur and]
    :dont-use     '[every?]
    :implemented? false}
-  ([pred coll]))
+  ([pred coll]
+	 (loop [coll coll]
+		 (if (empty? coll )
+			 true
+			 (and (pred (first coll)) (recur (rest coll)))))))
 
 (defn some?'
   "Implement your own version of some that checks if at least one
@@ -72,7 +80,11 @@
    :use          '[loop recur or]
    :dont-use     '[some]
    :implemented? false}
-  ([pred coll]))
+  ([pred coll]
+	 (loop [coll coll]
+		 (if (empty? coll )
+			 false
+			 (or (pred (first coll)) (recur (rest coll)))))))
 
 (defn ascending?
   "Verify if every element is greater than or equal to its predecessor"
@@ -80,7 +92,8 @@
    :use          '[partition every? partial apply <=]
    :dont-use     '[loop recur]
    :implemented? false}
-  [coll])
+  [coll]
+	(every? (partial apply <=) (partition 2 1 coll)))
 
 (defn distinct'
   "Implement your own lazy sequence version of distinct which returns

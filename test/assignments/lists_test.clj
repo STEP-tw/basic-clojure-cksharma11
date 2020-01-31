@@ -17,3 +17,7 @@
 		(is (= [3 2 1] (reverse' [1 2 3]))))
 	(testing "invalid sequence"
 		(is (= nil (reverse' 1)))))
+
+(deftest counting
+	(testing "valid sequence"
+		(is (= 3 (count' [1 2 3])))))

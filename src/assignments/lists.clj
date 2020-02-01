@@ -7,8 +7,12 @@
 	{:level        :medium
 	 :use          '[loop recur]
 	 :dont-use     '[map]
-	 :implemented? false}
-	[f & colls])
+	 :implemented? true}
+	[f & colls]
+	(loop [coll (first colls) result []]
+		(if (empty? coll)
+			result
+			(recur (rest coll) (conj result (f (first coll)))))))
 
 (defn filter'
 	"Implement a non-lazy version of filter that accepts a
@@ -31,19 +35,14 @@
 	{:level        :medium
 	 :use          '[loop recur]
 	 :dont-use     '[reduce]
-	 :implemented? false}
+	 :implemented? true}
 	([f coll]
-	 (if (> (count coll) 1) (loop [acc (f (first coll) (second coll))
-																coll (rest (rest coll))]
-														(if (empty? coll)
-															acc
-															(recur (f acc (first coll)) (rest coll)))) (first coll)))
-	([f init coll]
-	 (loop [acc (f init (first coll))
-				 coll (rest coll)]
+	 (loop [coll (rest coll) result (first coll)]
 		 (if (empty? coll)
-			 acc
-			 (recur (f acc (first coll)) (rest coll))))))
+			 result
+			 (recur (rest coll) (f result (first coll))))))
+	([f init coll]
+	 (reduce' f (cons init coll))))
 
 (defn count'
 	"Implement your own version of count that counts the
@@ -152,11 +151,12 @@
 	^{:level        :easy
 		:dont-use     '[loop recur for nth get]
 		:implemented? false}
-	transpose (partial apply map list)
+	transpose
 	"Transposes a given matrix.
 	[[a b] [c d]] => [[a c] [b d]].
 	Note this is a def. Not a defn.
-	Return a vector of vectors, not list of vectors or vectors of lists")
+	Return a vector of vectors, not list of vectors or vectors of lists"
+	(partial apply mapv vector))
 
 (defn difference
 	"Given two collections, returns only the elements that are present
@@ -198,7 +198,8 @@
 	{:level        :easy
 	 :use          '[for]
 	 :implemented? false}
-	[seq1 seq2])
+	[seq1 seq2]
+	(for [x seq1 y seq2 :while (not= x y)] [x y]))
 
 (defn double-up
 	"Given a collection, return a new collection that contains

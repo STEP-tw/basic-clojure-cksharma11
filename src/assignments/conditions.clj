@@ -81,8 +81,8 @@
    :implemented? true}
   [coll rep? truncate? n]
 	(cond->> coll
-					 (true? rep?) cycle
-					 (true? truncate?) (take n)))
+					 rep? (concat coll)
+					 truncate? (take n)))
 
 (defn order-in-words
   "Given x, y and z, returns a vector consisting of

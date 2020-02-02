@@ -18,7 +18,6 @@
 	(testing "invalid sequence"
 		(is (= nil (reverse' 1)))))
 
-
 (deftest count-test
 	(testing "sequence length"
 		(is (= 5 (count' [1 2 3 4 5]))))
@@ -66,3 +65,41 @@
 (deftest sum-of-adjacent-digits-test
 	(testing "with ascending list"
 		(is (= [3 5] (sum-of-adjacent-digits [1 2 3])))))
+
+(deftest difference-test
+	(testing "different list"
+		(is (= '(4 5) (difference [1 2 3] [1 2 3 4 5]))))
+	(testing "same list"
+		(is (= '() (difference [1 2 3] [1 2 3])))))
+
+(deftest muted-thirds-test
+	(testing "different list"
+		(is (= '(1 2 0 4 5 0) (muted-thirds [1 2 3 4 5 6])))))
+
+(deftest palindrome-test
+	(testing "valid palindrome"
+		(is (= true (palindrome? [1 2 3 2 1]))))
+	(testing "invalid palindrome"
+		(is (= false (palindrome? [ 1 2 3])))))
+
+(deftest index-of-test
+	(testing "element present in collection"
+		(is (= 1 (index-of [1 2 3] 2))))
+	(testing "element not present in collection"
+		(is (= -1 (index-of [ 1 2 3] 4)))))
+
+(deftest russian-dolls-test
+	(testing "[1 2 3] 3 => [[[1]] [[2]] [[3]]]"
+		(is (= [[[1]] [[2]] [[3]]]  (russian-dolls [1 2 3] 3)))))
+
+(deftest split-comb-test
+	(testing "[1 2 3 4 5] => [1 3 2 4 5]"
+		(is (= [1 3 2 4 5]  (split-comb [1 2 3 4 5])))))
+
+(deftest double-up-test
+	(testing ""
+		(is (= [1 1 2 2]  (double-up [1 2])))))
+
+(deftest cross-product-test
+	(testing ""
+		(is (= [[1 4] [1 3] [1 5] [2 4] [2 3] [2 5] [3 4]]  (cross-product [1 2 3] [4 3 5])))))

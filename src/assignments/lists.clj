@@ -166,7 +166,7 @@
 	 :dont-use     '[loop recur if]
 	 :implemented? true}
 	[coll1 coll2]
-	(remove coll1 coll2))
+	(remove (into #{} coll1) (into #{} coll2)))
 
 (defn union
 	"Given two collections, returns a new collection with elements from the second
@@ -197,7 +197,7 @@
 	[[1 4] [1 3] [1 5] [2 4] [2 3] [2 5] [3 4]]"
 	{:level        :easy
 	 :use          '[for]
-	 :implemented? false}
+	 :implemented? true}
 	[seq1 seq2]
 	(for [x seq1 y seq2 :while (not= x y)] [x y]))
 
@@ -225,7 +225,7 @@
 	[4 5 6] => [16 16 16]"
 	{:level        :easy
 	 :use          '[map constantly let]
-	 :implemented? false}
+	 :implemented? true}
 	[coll]
 	(let [sqr (constantly (* (first coll) (first coll)))]
 		(map sqr coll)))
@@ -265,7 +265,7 @@
 	{:level        :easy
 	 :use          '[map cycle]
 	 :dont-use     '[loop recur map-indexed take take-nth]
-	 :implemented? false}
+	 :implemented? true}
 	[coll]
 	(map * (cycle '(1 1 0)) coll))
 

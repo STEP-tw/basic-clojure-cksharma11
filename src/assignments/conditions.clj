@@ -59,6 +59,11 @@
 		(> x y) :greece
 		:else :universe))
 
+(defn is-equal-and-same-order [subset coll]
+	(-> (set subset)
+			(filter coll)
+			(= subset)))
+
 (defn conditions-apply
   "Given a collection of any length, returns:
   :wonder-woman if collection has a single occurrence of 1 and 3 in that order
@@ -69,7 +74,12 @@
    :use          '[condp filter]
    :alternates   '[if cond]
    :implemented? false}
-  [coll])
+  [coll]
+	(condp is-equal-and-same-order coll
+		[1 3] :wonder-woman
+		[:a :b :c] :durga
+		[[2 3] [4 5]] :cleopatra
+		:tuntun))
 
 (defn repeat-and-truncate
   "Given coll and options to repeat and truncate

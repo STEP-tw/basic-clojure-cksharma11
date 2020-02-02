@@ -75,3 +75,23 @@
 		(is (= [0 1 2] (doall (repeat-and-truncate (range 4) false true 3)))))
 	(testing "repeat and truncate true"
 		(is (= [0 1 2 3 0 1] (doall (repeat-and-truncate (range 4) true true 6))))))
+
+(deftest conditions-apply-test
+	(testing "1 3 are in order"
+		(is (= :wonder-woman (conditions-apply [1 2 3]))))
+	(testing "1 3 are not in order"
+		(is (= :tuntun (conditions-apply [3 1 2]))))
+	(testing "1 3 occurs more than one time"
+		(is (= :tuntun (conditions-apply [1 1 3]))))
+	(testing ":a :b :c are in order"
+		(is (= :durga (conditions-apply [:a :b :c :d]))))
+	(testing ":a :b :c are not in order"
+		(is (= :tuntun (conditions-apply [:a :c :b]))))
+	(testing ":a :b :c occurs more than one time"
+		(is (= :tuntun (conditions-apply [:a :a ::c]))))
+	(testing "[2 3] [4 5] are in order"
+		(is (= :cleopatra (conditions-apply [[2 3] [4 5]]))))
+	(testing "[2 3] [4 5] are not in order"
+		(is (= :tuntun (conditions-apply [[4 5] [2 3]]))))
+	(testing "[2 3] [4 5] occurs more than one time"
+		(is (= :tuntun (conditions-apply [[2 3] [2 3] [4 5]])))))

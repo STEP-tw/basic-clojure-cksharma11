@@ -73,7 +73,7 @@
   {:level        :medium
    :use          '[condp filter]
    :alternates   '[if cond]
-   :implemented? false}
+   :implemented? true}
   [coll]
 	(condp is-equal-and-same-order coll
 		[1 3] :wonder-woman

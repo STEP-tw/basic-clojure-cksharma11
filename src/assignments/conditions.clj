@@ -124,12 +124,12 @@
 	:implemented? true}
  [zero-like-value]
  (case zero-like-value
-	(0) :zero
-	([]) :empty
-	('()) :empty
-	(#{}) :empty-set
-	({}) :empty-map
-	("") :empty-string
+	0 :zero
+	[] :empty
+	`() :empty
+	#{} :empty-set
+	{} :empty-map
+	"" :empty-string
 	:non-zero))
 
 (defn zero-separated-palindrome

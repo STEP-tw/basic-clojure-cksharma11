@@ -121,6 +121,40 @@
  (testing "with duplicates"
 	(is (= [1 2 3] (distinct' [1 1 2 3 2])))))
 
+(deftest sqr-of-the-first-test
+ (testing "with single item"
+	(is (= [1] (sqr-of-the-first [1]))))
+ (testing "with collection containing 4 items"
+	(is (= [4 4 4 4] (sqr-of-the-first [2 3 4 5])))))
+
+(deftest union-test
+ (testing "with no common elements"
+	(is (= [1 2 3 4 5 6] (union [1 2 3] [4 5 6]))))
+ (testing "with common elements but elements doesn't repeat"
+	(is (= [1 2 3 4 5] (union [1 2 3] [3 4 5]))))
+ (testing "with common element and elements repeat"
+	(is (= [1 2 3 1 4 5 6 4] (union [1 2 3 1] [4 5 6 3 2 4])))))
+
+
+(deftest dedupe-test
+ (testing "with no duplicates"
+	(is (= [1 2 3] (dedupe' [1 2 3]))))
+ (testing "with duplicates but not consecutive"
+	(is (= [1 2 3 1] (dedupe' [1 2 3 1]))))
+ (testing "with consecutive duplicates"
+	(is (= [1 2 3] (dedupe' [1 1 2 3 3])))))
+
+(deftest points-around-origin-test
+ (testing "points around origin"
+	(is (= '([-1 -1]
+					 [-1 0]
+					 [-1 1]
+					 [0 -1]
+					 [0 1]
+					 [1 -1]
+					 [1 0]
+					 [1 1]) points-around-origin))))
+
 (deftest validate-sudoku-grid-test
  (testing "correct grid"
 	(is (true? (validate-sudoku-grid

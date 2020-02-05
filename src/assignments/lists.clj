@@ -37,10 +37,10 @@
 	:dont-use     '[reduce]
 	:implemented? true}
  ([f coll]
-	(loop [coll (rest coll) result (first coll)]
+	(loop [result (first coll) coll (rest coll)]
 	 (if (empty? coll)
 		result
-		(recur (rest coll) (f result (first coll))))))
+		(recur (f result (first coll)) (rest coll)))))
  ([f init coll]
 	(reduce' f (cons init coll))))
 
@@ -178,7 +178,7 @@
 	:use          '[remove into set ->>]
 	:implemented? true}
  [coll1 coll2]
- (map identity (set (into coll1 coll2))))
+ (into coll1 (remove (set coll1) coll2)))
 
 ;; points-around-origin is a def not a defn
 (def

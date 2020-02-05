@@ -215,13 +215,18 @@
 	[coll]
 	(mapcat (partial repeat 2) coll))
 
+(defn divisible-by-three-or-five?
+	[n]
+	(or (zero? (rem n 3)) (zero? (rem n 5))))
+
 (defn third-or-fifth
 	"Given a collection return a new collection that contains
 	elements whose index is either divisible by three or five"
 	{:level        :easy
 	 :use          '[keep-indexed when :optionally map-indexed filter]
-	 :implemented? false}
-	[coll])
+	 :implemented? true}
+	[coll]
+	(keep-indexed #(if (divisible-by-three-or-five? %1) %2) coll))
 
 (defn sqr-of-the-first
 	"Given a collection, return a new collection that contains the
@@ -253,64 +258,65 @@
 	[coll nesting-factor]
 	(mapv (partial nest nesting-factor) coll))
 
-	(defn split-comb
-		"Given a collection, return a new sequence where the first
-		half of the sequence is interleaved with the second half.
-		If the given collection has an odd number of elements, then
-		preserve the last element of the original collection
-		[1 2 3 4 5] => [1 3 2 4 5]"
-		{:level        :easy
-		 :use          '[interleave split-at if rem concat take-last]
-		 :dont-use     '[loop recur map-indexed take drop]
-		 :implemented? true}
-		[coll]
-		(let [no-of-elems (count coll)
-					result (apply interleave (split-at (quot no-of-elems 2) coll))]
-			(if-not (zero? (rem no-of-elems 2))
-				(concat result (take-last 1 coll)))))
+(defn split-comb
+	"Given a collection, return a new sequence where the first
+	half of the sequence is interleaved with the second half.
+	If the given collection has an odd number of elements, then
+	preserve the last element of the original collection
+	[1 2 3 4 5] => [1 3 2 4 5]"
+	{:level        :easy
+	 :use          '[interleave split-at if rem concat take-last]
+	 :dont-use     '[loop recur map-indexed take drop]
+	 :implemented? true}
+	[coll]
+	(let [no-of-elems (count coll)
+				result (apply interleave (split-at (quot no-of-elems 2) coll))]
+		(if-not (zero? (rem no-of-elems 2))
+			(concat result (take-last 1 coll)))))
 
-	(defn muted-thirds
-		"Given a sequence of numbers, make every third element
-		0 while preserving the other elements
-		[1 2 8 4 15 2 7] => [1 2 0 4 15 0 7]"
-		{:level        :easy
-		 :use          '[map cycle]
-		 :dont-use     '[loop recur map-indexed take take-nth]
-		 :implemented? true}
-		[coll]
-		(map * (cycle '(1 1 0)) coll))
+(defn muted-thirds
+	"Given a sequence of numbers, make every third element
+	0 while preserving the other elements
+	[1 2 8 4 15 2 7] => [1 2 0 4 15 0 7]"
+	{:level        :easy
+	 :use          '[map cycle]
+	 :dont-use     '[loop recur map-indexed take take-nth]
+	 :implemented? true}
+	[coll]
+	(map * (cycle '(1 1 0)) coll))
 
-	(defn palindrome?
-		"Implement a recursive palindrome check of any given sequence"
-		{:level        :easy
-		 :use          '[empty? loop recur butlast rest]
-		 :dont-use     '[reverse]
-		 :implemented? false}
-		[coll]
-		(loop [coll coll]
-			(cond
-				(empty? coll) true
-				(not= (first coll) (last coll)) false
-				:else (recur (rest (butlast coll))))))
+(defn palindrome?
+	"Implement a recursive palindrome check of any given sequence"
+	{:level        :easy
+	 :use          '[empty? loop recur butlast rest]
+	 :dont-use     '[reverse]
+	 :implemented? false}
+	[coll]
+	(loop [coll coll]
+		(cond
+			(empty? coll) true
+			(not= (first coll) (last coll)) false
+			:else (recur (rest (butlast coll))))))
 
-	(defn index-of
-		"index-of takes a sequence and an element and finds the index
-		of the element in the given sequence. Returns -1 if element
-		is not found"
-		{:level        :easy
-		 :use          '[loop recur rest]
-		 :dont-use     '[.indexOf memfn]
-		 :implemented? true}
-		[coll n]
-		(loop [index 0
-					 coll coll]
-			(cond
-				(empty? coll) -1
-				(= n (first coll)) index
-				:else (recur (inc index) (rest coll)))))
+(defn index-of
+	"index-of takes a sequence and an element and finds the index
+	of the element in the given sequence. Returns -1 if element
+	is not found"
+	{:level        :easy
+	 :use          '[loop recur rest]
+	 :dont-use     '[.indexOf memfn]
+	 :implemented? true}
+	[coll n]
+	(loop [index 0
+				 coll coll]
+		(cond
+			(empty? coll) -1
+			(= n (first coll)) index
+			:else (recur (inc index) (rest coll)))))
 
-	(defn validate-sudoku-grid
-		"Given a 9 by 9 sudoku grid, validate it."
-		{:level        :hard
-		 :implemented? false}
-		[grid])
+
+(defn validate-sudoku-grid
+	"Given a 9 by 9 sudoku grid, validate it."
+	{:level        :hard
+	 :implemented? false}
+	[grid])

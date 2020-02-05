@@ -7,12 +7,12 @@
 	(testing "identity with single coll"
 	 (is (= [1 2 3] (map' identity [1 2 3]))))))
 
-(deftest filters
+(deftest filter-test
  (testing "filter"
 	(testing "filter with pred"
 	 (is (= [1 3] (filter' odd? [1 2 3]))))))
 
-(deftest reverses
+(deftest reverse-test
  (testing "valid sequence"
 	(is (= [3 2 1] (reverse' [1 2 3])))))
 
@@ -34,7 +34,7 @@
  (testing "arity 3"
 	(is (= 15 (reduce' + 1 [2 3 4 5])))))
 
-(deftest everys
+(deftest every-test
  (testing "with empty list"
 	(is (= true (every?' even? []))))
  (testing "with all true values"
@@ -44,7 +44,7 @@
  (testing "with some true values"
 	(is (= false (every?' even? [1 2])))))
 
-(deftest somes
+(deftest some-test
  (testing "with empty list"
 	(is (= false (some?' even? []))))
  (testing "with all true values"
@@ -95,12 +95,31 @@
 	(is (= [1 3 2 4 5] (split-comb [1 2 3 4 5])))))
 
 (deftest double-up-test
- (testing ""
-	(is (= [1 1 2 2] (double-up [1 2])))))
+ (testing "with empty sequence"
+	(is (= [] (double-up []))))
+ (testing "with integer sequence"
+	(is (= [1 1 2 2 3 3] (double-up [1 2 3]))))
+ (testing "with string sequence"
+	(is (= ["I" "I" "love" "love" "clojure" "clojure"]
+				 (double-up ["I" "love" "clojure"])))))
+
+(deftest third-or-fifth-test
+ (testing "with single item"
+	(is (= ["I"] (third-or-fifth ["I"]))))
+ (testing "with collection containing 4 items - last index is 3"
+	(is (= [1 4] (third-or-fifth [1 2 3 4]))))
+ (testing "with collection containing 6 items - last index is 5"
+	(is (= [1 4 6] (third-or-fifth [1 2 3 4 5 6])))))
 
 (deftest cross-product-test
  (testing ""
 	(is (= [[1 4] [1 3] [1 5] [2 4] [2 3] [2 5] [3 4]] (cross-product [1 2 3] [4 3 5])))))
+
+(deftest distinct-test
+ (testing "with no duplicates"
+	(is (= [1 2 3] (distinct' [1 2 3]))))
+ (testing "with duplicates"
+	(is (= [1 2 3] (distinct' [1 1 2 3 2])))))
 
 (deftest validate-sudoku-grid-test
  (testing "correct grid"

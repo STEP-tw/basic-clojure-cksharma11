@@ -336,8 +336,3 @@
  (and (every? have-all? grid)
 			(every? have-all? (transpose grid))
 			(every? have-all? (get-3x3 grid))))
-
-;(first (map (partial partition 9) (map flatten (transpose (map (partial partition 3) board)))))
-;(every? #(= win (set %)) (partition 9 (flatten (map (partial partition 9) (map flatten (transpose (map (partial partition 3) b)))))))
-;(every? #(= win (set %)) (partition 9 (flatten (transpose (map (partial partition 3) b)))))
-;(every? has-all (partition 9 (flatten (transpose (map (partial partition 3) b)))))

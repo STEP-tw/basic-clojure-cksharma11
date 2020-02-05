@@ -64,8 +64,8 @@
 	 :use          '[reduce conj seqable? when]
 	 :dont-use     '[reverse]
 	 :implemented? true}
-	([coll]
-	 (reduce conj '() coll)))
+	[coll]
+	(reduce conj '() coll))
 
 (defn every?'
 	"Implement your own version of every? that checks if every
@@ -314,9 +314,28 @@
 			(= n (first coll)) index
 			:else (recur (inc index) (rest coll)))))
 
+(def win #{7 1 4 6 3 2 9 5 8})
+
+(defn has-all [row]
+	(= win (into #{} row)))
+
+(defn small-cube [b]
+	(->> b
+			 (map (partial partition 3))
+			 (transpose)
+			 (flatten)
+			 (partition 9)))
 
 (defn validate-sudoku-grid
 	"Given a 9 by 9 sudoku grid, validate it."
 	{:level        :hard
-	 :implemented? false}
-	[grid])
+	 :implemented? true}
+	[grid]
+	(and (every? has-all grid)
+			 (every? has-all (transpose grid))
+			 (every? has-all (small-cube grid))))
+
+;(first (map (partial partition 9) (map flatten (transpose (map (partial partition 3) board)))))
+;(every? #(= win (set %)) (partition 9 (flatten (map (partial partition 9) (map flatten (transpose (map (partial partition 3) b)))))))
+;(every? #(= win (set %)) (partition 9 (flatten (transpose (map (partial partition 3) b)))))
+;(every? has-all (partition 9 (flatten (transpose (map (partial partition 3) b)))))

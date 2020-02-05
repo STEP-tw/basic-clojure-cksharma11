@@ -314,13 +314,15 @@
 			(= n (first coll)) index
 			:else (recur (inc index) (rest coll)))))
 
-(def win #{7 1 4 6 3 2 9 5 8})
+(def valid-row #{7 1 4 6 3 2 9 5 8})
 
-(defn has-all [row]
-	(= win (into #{} row)))
+(defn have-all?
+	[row]
+	(= valid-row (into #{} row)))
 
-(defn small-cube [b]
-	(->> b
+(defn get-3x3
+	[board]
+	(->> board
 			 (map (partial partition 3))
 			 (transpose)
 			 (flatten)
@@ -331,9 +333,9 @@
 	{:level        :hard
 	 :implemented? true}
 	[grid]
-	(and (every? has-all grid)
-			 (every? has-all (transpose grid))
-			 (every? has-all (small-cube grid))))
+	(and (every? have-all? grid)
+			 (every? have-all? (transpose grid))
+			 (every? have-all? (get-3x3 grid))))
 
 ;(first (map (partial partition 9) (map flatten (transpose (map (partial partition 3) board)))))
 ;(every? #(= win (set %)) (partition 9 (flatten (map (partial partition 9) (map flatten (transpose (map (partial partition 3) b)))))))

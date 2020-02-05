@@ -323,9 +323,7 @@
 (defn get-3x3
  [board]
  (->> board
-			(map (partial partition 3))
-			(transpose)
-			(flatten)
+			(apply interleave)
 			(partition 9)))
 
 (defn validate-sudoku-grid
@@ -333,6 +331,4 @@
  {:level        :hard
 	:implemented? true}
  [grid]
- (and (every? have-all? grid)
-			(every? have-all? (transpose grid))
-			(every? have-all? (get-3x3 grid))))
+ (every? have-all? (concat grid (transpose grid) (get-3x3 grid))))

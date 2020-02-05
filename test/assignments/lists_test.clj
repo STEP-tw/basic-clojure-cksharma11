@@ -135,7 +135,6 @@
  (testing "with common element and elements repeat"
 	(is (= [1 2 3 1 4 5 6 4] (union [1 2 3 1] [4 5 6 3 2 4])))))
 
-
 (deftest dedupe-test
  (testing "with no duplicates"
 	(is (= [1 2 3] (dedupe' [1 2 3]))))

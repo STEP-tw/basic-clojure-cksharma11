@@ -113,12 +113,8 @@
    :dont-use     '[loop recur distinct]
    :implemented? true}
   [coll]
-  (letfn [(get-distinct [result coll]
-            (lazy-seq (when-let [x (first coll)]
-                        (if-not (nil? (result x))
-                          (get-distinct result (rest coll))
-                          (cons x (get-distinct (conj result x) (rest coll)))))))]
-    (get-distinct #{} coll)))
+  (lazy-seq (when-let [x (first coll)]
+              (cons x (distinct' (filter (partial not= x) coll))))))
 
 (defn dedupe'
   "Implement your own lazy sequence version of dedupe which returns

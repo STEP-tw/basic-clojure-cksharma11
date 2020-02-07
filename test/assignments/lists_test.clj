@@ -46,11 +46,11 @@
 
 (deftest some-test
   (testing "with empty list"
-    (is (= false (some?' even? []))))
+    (is (= nil (some?' even? []))))
   (testing "with all true values"
     (is (= true (some?' even? [2 4 6]))))
   (testing "with all falsy values"
-    (is (= false (some?' even? [1 3 5]))))
+    (is (= nil (some?' even? [1 3 5]))))
   (testing "with some true values"
     (is (= true (some?' even? [1 2])))))
 

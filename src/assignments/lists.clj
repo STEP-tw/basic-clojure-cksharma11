@@ -92,7 +92,7 @@
   ([pred coll]
    (loop [coll coll]
      (if (empty? coll)
-       false
+       nil
        (or (pred (first coll)) (recur (rest coll)))))))
 
 (defn ascending?
